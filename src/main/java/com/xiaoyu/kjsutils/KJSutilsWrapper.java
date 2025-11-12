@@ -23,13 +23,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class KJSutilsWrapper {
-    private Path validateAndNormalizePath(String Path) {
+    private Path ValidateAndNormalizePath(String Path) {
         Path minecraftDir = FMLPaths.GAMEDIR.get().normalize().toAbsolutePath();
         Path = Path.replace('\\', '/');
         return minecraftDir.resolve(Path).normalize().toAbsolutePath();
     }
 
-    private String resolveToJsonString(String pathStr) {
+    private String ResolveToJsonString(String pathStr) {
         try {
             Path baseDir = FMLPaths.GAMEDIR.get().normalize().toAbsolutePath();
             Path filePath = baseDir.resolve(pathStr.replace('\\', '/')).normalize().toAbsolutePath();
@@ -45,7 +45,7 @@ public class KJSutilsWrapper {
     }
 
     public void Download(String URL, Path savePath, String FileName) {
-        Path normalizedPath = validateAndNormalizePath(String.valueOf(savePath));
+        Path normalizedPath = ValidateAndNormalizePath(String.valueOf(savePath));
         if (Objects.equals(FileName, "null")) {
             FileName = URL.substring(URL.lastIndexOf('/') + 1);
             if (FileName.isEmpty()) {
@@ -74,20 +74,20 @@ public class KJSutilsWrapper {
     private static final Pattern TOKEN_PATTERN = Pattern.compile("\\['([^']+)']|\\.([A-Za-z0-9_]+)|\\[(\\d+)]|\\*|^([A-Za-z0-9_]+)");
 
     public String Analysis(String filePath, String jsonPath) {
-        List<String> list = getJsonValueByPath(resolveToJsonString(filePath), jsonPath);
+        List<String> list = GetJsonValueByPath(ResolveToJsonString(filePath), jsonPath);
         if (list.isEmpty()) return "null";
         return list.getFirst();
     }
 
     public List<String> AnalysisAll(String filePath, String jsonPath) {
-        return getJsonValueByPath(resolveToJsonString(filePath), jsonPath);
+        return GetJsonValueByPath(ResolveToJsonString(filePath), jsonPath);
     }
 
-    private List<String> getJsonValueByPath(String jsonString, String jsonParsingPath) {
+    private List<String> GetJsonValueByPath(String jsonString, String jsonParsingPath) {
         try {
             JsonElement root = JsonParser.parseString(jsonString);
             JsonElement result = get(root, jsonParsingPath);
-            return flatten(result);
+            return Flatten(result);
         } catch (Exception e) {
             KJSutils.LOGGER.error("Failed to parse JSON source: {}", jsonParsingPath, e);
             return List.of();
@@ -100,11 +100,11 @@ public class KJSutilsWrapper {
 
         path = path.substring(1);
         if (path.startsWith(".")) path = path.substring(1);
-        List<Object> tokens = tokenize(path);
-        return navigate(root, tokens);
+        List<Object> tokens = Tokenize(path);
+        return Navigate(root, tokens);
     }
 
-    private List<Object> tokenize(String path) {
+    private List<Object> Tokenize(String path) {
         List<Object> tokens = new ArrayList<>();
         Matcher matcher = TOKEN_PATTERN.matcher(path);
 
@@ -124,7 +124,7 @@ public class KJSutilsWrapper {
         return tokens;
     }
 
-    private JsonElement navigate(JsonElement current, List<Object> tokens) {
+    private JsonElement Navigate(JsonElement current, List<Object> tokens) {
         for (Object token : tokens) {
             if (token.equals("*")) {
                 JsonArray result = new JsonArray();
@@ -151,7 +151,7 @@ public class KJSutilsWrapper {
         return current;
     }
 
-    private List<String> flatten(JsonElement element) {
+    private List<String> Flatten(JsonElement element) {
         List<String> list = new ArrayList<>();
         if (element == null || element.isJsonNull()) return list;
 
@@ -159,7 +159,7 @@ public class KJSutilsWrapper {
             list.add(element.getAsString());
         } else if (element.isJsonArray()) {
             for (JsonElement e : element.getAsJsonArray())
-                list.addAll(flatten(e));
+                list.addAll(Flatten(e));
         } else if (element.isJsonObject()) {
             list.add(element.toString());
         }
