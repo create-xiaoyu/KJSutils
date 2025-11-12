@@ -168,7 +168,6 @@ public class KJSutilsWrapper {
 
     public void FMsetVariable(String variableName, String variableValue) {
         VariableHandler.setVariable(variableName, variableValue);
-        Variable variable =  VariableHandler.getVariable(variableName);
     }
 
     public void FMremoveVariable(String variableName) {
