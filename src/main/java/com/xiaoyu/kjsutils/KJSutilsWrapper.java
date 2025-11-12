@@ -178,23 +178,23 @@ public class KJSutilsWrapper {
         }
     }
 
-    public static void FMremoveVariable(String variableName) {
+    public void FMremoveVariable(String variableName) {
         VariableHandler.removeVariable(variableName);
     }
 
-    public static Variable FMgetVariable(String variableName) {
+    public Variable FMgetVariable(String variableName) {
         return VariableHandler.getVariable(variableName);
     }
 
-    public static Boolean FMexistsVariable(String variableName) {
+    public Boolean FMexistsVariable(String variableName) {
         return VariableHandler.variableExists(variableName);
     }
 
-    public static void FMinit() {
+    public void FMinit() {
         VariableHandler.init();
     }
 
-    public static void FMclearAllVariables() {
+    public void FMclearAllVariables() {
         VariableHandler.clearVariables();
     }
 }
