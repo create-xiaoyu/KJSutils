@@ -99,6 +99,50 @@ KJSutils.AnalysisAll("file_path (must be within .minecraft/ for safety)", "json_
 
 ---
 
+### 2. Operating FancyMenu Variables
+
+**Usage:**
+
+```javascript
+// Set or add a variable
+KJSutils.FMsetVariable("variableName", "variableValue", "resetOnLaunch (boolean)")
+
+// Delete a variable
+KJSutils.FMremoveVariable("variableName")
+
+// Get a variable’s value
+KJSutils.FMgetVariable("variableName") // returns a Variable type
+
+// Check if a variable exists
+KJSutils.FMexistsVariable("variableName") // returns a boolean
+
+// Trigger variable initialization
+KJSutils.FMinit()
+
+// Delete all variables
+KJSutils.FMclearAllVariables()
+```
+
+**Example:**
+
+```javascript
+// Set the variable "test" to value 1 and make it reset on launch
+KJSutils.FMsetVariable("test", "1", true)
+
+// Delete the variable "test"
+KJSutils.FMremoveVariable("test")
+
+// Get the value of the variable "test"
+let value = KJSutils.FMgetVariable("test")
+
+// Check if the variable "test" exists
+if (KJSutils.FMexistsVariable("test")) {
+    // Other operations
+}
+```
+
+---
+
 ### Credits
 
 * Code references: [**FilesJS**](https://github.com/xiaoliziawa/Files-JS)

@@ -1,6 +1,8 @@
 package com.xiaoyu.kjsutils;
 
 import com.google.gson.*;
+import de.keksuccino.fancymenu.customization.variables.Variable;
+import de.keksuccino.fancymenu.customization.variables.VariableHandler;
 import dev.latvian.mods.kubejs.script.ScriptType;
 import dev.latvian.mods.kubejs.script.ScriptTypeHolder;
 import net.neoforged.fml.loading.FMLPaths;
@@ -162,5 +164,37 @@ public class KJSutilsWrapper {
             list.add(element.toString());
         }
         return list;
+    }
+
+    public static void FMsetVariable(String variableName, String variableValue, boolean InitClear) {
+        VariableHandler.setVariable(variableName, variableValue);
+        Variable variable =  VariableHandler.getVariable(variableName);
+        if (InitClear) {
+            if (variable != null) {
+                variable.setResetOnLaunch(true);
+            } else {
+                KJSutils.LOGGER.error("Variable Not Found: {}", variableName);
+            }
+        }
+    }
+
+    public static void FMremoveVariable(String variableName) {
+        VariableHandler.removeVariable(variableName);
+    }
+
+    public static Variable FMgetVariable(String variableName) {
+        return VariableHandler.getVariable(variableName);
+    }
+
+    public static Boolean FMexistsVariable(String variableName) {
+        return VariableHandler.variableExists(variableName);
+    }
+
+    public static void FMinit() {
+        VariableHandler.init();
+    }
+
+    public static void FMclearAllVariables() {
+        VariableHandler.clearVariables();
     }
 }

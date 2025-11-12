@@ -2,7 +2,7 @@
 
 # KJSutils（Kubejs集成）
 
-此模组对kubejs进行了功能上的扩展，添加了2个新功能，共3个方法
+此模组对kubejs进行了功能上的扩展，添加了3个新功能，共9个方法
 
 ---
 
@@ -32,10 +32,10 @@ KJSutils.Download("https://example.com/example.txt", "config/httpjs", "helloworl
 
 ```javascript
 // 返回：第一个匹配值的字符串，无匹配返回 "null"
-KJSutils.Analysis("文件路径（仅能读取在 **.minecraft/** 路径下以保证安全性）", "Json路径")
+KJSutils.Analysis("文件路径（仅能读取在 .minecraft/ 路径下以保证安全性）", "Json路径")
 
 // 返回：所有匹配值的字符串列表
-KJSutils.AnalysisAll("文件路径（仅能读取在 **.minecraft/** 路径下以保证安全性）", "Json路径")
+KJSutils.AnalysisAll("文件路径（仅能读取在 .minecraft/ 路径下以保证安全性）", "Json路径")
 ```
 
 ---
@@ -96,6 +96,50 @@ KJSutils.AnalysisAll("文件路径（仅能读取在 **.minecraft/** 路径下�
 | `$.players.*.name`                  | 获取所有玩家的名字       | `["Steve", "Alex"]`                                          |
 | `$.players[0].inventory.*.count`    | 获取Steve所有物品的数量	 | `[5, 64]`                                                    |
 | `$.players.*.inventory.*.id`        | 获取所有玩家的所有物品ID   | `["minecraft:diamond", "minecraft:stone", "minecraft:wood"]` |
+
+---
+
+### 2.对FancyMenu的变量进行操作
+
+**使用方式：**
+
+```javascript
+// 设置、添加变量
+KJSutils.FMsetVariable("变量名称", "变量值", "是否在启动时被重置（布尔值）")
+
+// 删除变量
+KJSutils.FMremoveVariable("变量名称")
+
+// 获取变量值
+KJSutils.FMgetVariable("变量名称") //返回 Variable 类型
+
+// 检查变量是否存在
+KJSutils.FMexistsVariable("变量名称") // 返回布尔值
+
+// 触发变量初始化操作
+KJSutils.FMinit()
+
+// 删除所有变量
+KJSutils.FMclearAllVariables()
+```
+
+**示例：**
+
+```javascript
+// 设置变量test值为1并让它在启动时被重置
+KJSutils.FMsetVariable("test", "1", true)
+
+// 删除test变量
+KJSutils.FMremoveVariable("test")
+
+// 获取test变量的值
+let value = KJSutils.FMgetVariable("test")
+
+// 检查test变量是否存在
+if (KJSutils.FMexistsVariable("test")) {
+    // 其它操作
+}
+```
 
 ---
 
