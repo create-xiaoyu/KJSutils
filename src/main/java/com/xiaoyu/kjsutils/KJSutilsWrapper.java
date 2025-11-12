@@ -3,8 +3,6 @@ package com.xiaoyu.kjsutils;
 import com.google.gson.*;
 import de.keksuccino.fancymenu.customization.variables.Variable;
 import de.keksuccino.fancymenu.customization.variables.VariableHandler;
-import dev.latvian.mods.kubejs.script.ScriptType;
-import dev.latvian.mods.kubejs.script.ScriptTypeHolder;
 import net.neoforged.fml.loading.FMLPaths;
 
 import java.io.IOException;
@@ -59,8 +57,6 @@ public class KJSutilsWrapper {
             try (InputStream input = connection.getInputStream()) {
                 Files.copy(input, savePath, StandardCopyOption.REPLACE_EXISTING);
             }
-            KJSutilsEvent event = new KJSutilsEvent(URL, String.valueOf(savePath), "Code: " + connection.getResponseCode());
-            KJSutilsPlugin.HTTP_DOWNLOAD.post((ScriptTypeHolder) ScriptType.COMMON, event);
             KJSutils.LOGGER.info("Download Success {} to {}, Code: {}", URL, savePath, connection.getResponseCode());
         } catch (IOException | URISyntaxException e) {
             KJSutils.LOGGER.error("Download Error: {}", savePath, e);

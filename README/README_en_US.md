@@ -20,8 +20,8 @@ KJSutils.Download("download_url", "save_path", "save_filename (use null to keep 
 **Examples:**
 
 ```javascript
-KJSutils.Download("https://example.com/example.txt", "config/httpjs", "null")
-KJSutils.Download("https://example.com/example.txt", "config/httpjs", "helloworld.txt")
+KJSutils.Download("https://example.com/example.txt", "config/kjsutils", "null")
+KJSutils.Download("https://example.com/example.txt", "config/kjsutils", "helloworld.txt")
 ```
 
 ---
@@ -99,7 +99,7 @@ KJSutils.AnalysisAll("file_path (must be within .minecraft/ for safety)", "json_
 
 ---
 
-### 2. Operating FancyMenu Variables
+### 3. Operating FancyMenu Variables
 
 **Usage:**
 
@@ -122,6 +122,8 @@ KJSutils.FMinit()
 // Delete all variables
 KJSutils.FMclearAllVariables()
 ```
+
+---
 
 **Example:**
 

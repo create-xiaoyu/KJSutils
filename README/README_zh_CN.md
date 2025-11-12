@@ -20,8 +20,8 @@ KJSutils.Download("下载链接", "保存路径", "保存文件名（如果使�
 **示例：**
 
 ```javascript
-KJSutils.Download("https://example.com/example.txt", "config/httpjs", "null")
-KJSutils.Download("https://example.com/example.txt", "config/httpjs", "helloworld.txt")
+KJSutils.Download("https://example.com/example.txt", "config/kjsutils", "null")
+KJSutils.Download("https://example.com/example.txt", "config/kjsutils", "helloworld.txt")
 ```
 
 ---
@@ -99,7 +99,7 @@ KJSutils.AnalysisAll("文件路径（仅能读取在 .minecraft/ 路径下以保
 
 ---
 
-### 2.对FancyMenu的变量进行操作
+### 3.对FancyMenu的变量进行操作
 
 **使用方式：**
 
@@ -122,6 +122,8 @@ KJSutils.FMinit()
 // 删除所有变量
 KJSutils.FMclearAllVariables()
 ```
+
+---
 
 **示例：**
 
