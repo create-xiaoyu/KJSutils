@@ -105,7 +105,7 @@ KJSutils.AnalysisAll("文件路径（仅能读取在 .minecraft/ 路径下以保
 
 ```javascript
 // 设置、添加变量
-KJSutils.FMsetVariable("变量名称", "变量值", "是否在启动时被重置（布尔值）")
+KJSutils.FMsetVariable("变量名称", "变量值")
 
 // 删除变量
 KJSutils.FMremoveVariable("变量名称")
@@ -126,8 +126,8 @@ KJSutils.FMclearAllVariables()
 **示例：**
 
 ```javascript
-// 设置变量test值为1并让它在启动时被重置
-KJSutils.FMsetVariable("test", "1", true)
+// 设置变量test值为1
+KJSutils.FMsetVariable("test", "true")
 
 // 删除test变量
 KJSutils.FMremoveVariable("test")

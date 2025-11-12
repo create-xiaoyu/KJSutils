@@ -166,16 +166,9 @@ public class KJSutilsWrapper {
         return list;
     }
 
-    public void FMsetVariable(String variableName, String variableValue, boolean InitClear) {
+    public void FMsetVariable(String variableName, String variableValue) {
         VariableHandler.setVariable(variableName, variableValue);
         Variable variable =  VariableHandler.getVariable(variableName);
-        if (InitClear) {
-            if (variable != null) {
-                variable.setResetOnLaunch(true);
-            } else {
-                KJSutils.LOGGER.error("Variable Not Found: {}", variableName);
-            }
-        }
     }
 
     public void FMremoveVariable(String variableName) {
