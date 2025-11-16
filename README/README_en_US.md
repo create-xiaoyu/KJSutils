@@ -2,7 +2,7 @@
 
 # KJSutils (KubeJS Integration)
 
-This mod extends the functionality of KubeJS by adding **two new features** (for a total of three methods).
+This mod extends the functionality of KubeJS by adding **four new features** (for a total of ten methods).
 
 ---
 
@@ -99,7 +99,33 @@ KJSutils.AnalysisAll("file_path (must be within .minecraft/ for safety)", "json_
 
 ---
 
-### 3. Operating FancyMenu Variables
+### 3. Use syntax (only partially supported) to modify specific JSON values
+
+**Usage:**
+
+```javascript
+KJSutils.Analysis("File path (can only read files under the .minecraft/ directory for safety)", "JSON path", "Value to write (be mindful of the value type)")
+```
+
+**Examples:**
+
+```javascript
+// Modify a root-level property
+KJSutils.ModifyJsonValue("config/test.json", "$.name", "New Name");
+
+// Modify a nested property
+KJSutils.ModifyJsonValue("config/test.json", "$.player.level", 100);
+
+// Modify a boolean value
+KJSutils.ModifyJsonValue("config/test.json", "$.enabled", true);
+
+// Modify a JSON object
+KJSutils.ModifyJsonValue("config/test.json", "$.data", '{"key": "value"}');
+```
+
+---
+
+### 4. Operating FancyMenu Variables
 
 **Usage:**
 

@@ -2,7 +2,7 @@
 
 # KJSutils（Kubejs集成）
 
-此模组对kubejs进行了功能上的扩展，添加了3个新功能，共9个方法
+此模组对kubejs进行了功能上的扩展，添加了4个新功能，共10个方法
 
 ---
 
@@ -99,7 +99,33 @@ KJSutils.AnalysisAll("文件路径（仅能读取在 .minecraft/ 路径下以保
 
 ---
 
-### 3.对FancyMenu的变量进行操作
+### 3.使用语法（仅支持部分语法）对更改指定的Json对应值
+
+**使用方式：**
+
+```javascript
+KJSutils.Analysis("文件路径（仅能读取在 .minecraft/ 路径下以保证安全性）", "Json路径", "要写入的值（注意值的类型）")
+```
+
+**示例：**
+
+```javascript
+// 修改根级别属性
+KJSutils.ModifyJsonValue("config/test.json", "$.name", "新的名称");
+
+// 修改嵌套属性
+KJSutils.ModifyJsonValue("config/test.json", "$.player.level", 100);
+
+// 修改为布尔值
+KJSutils.ModifyJsonValue("config/test.json", "$.enabled", true);
+
+// 修改为JSON对象
+KJSutils.ModifyJsonValue("config/test.json", "$.data", '{"key": "value"}');
+```
+
+---
+
+### 4.对FancyMenu的变量进行操作
 
 **使用方式：**
 

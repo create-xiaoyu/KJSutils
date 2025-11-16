@@ -42,6 +42,18 @@ public class KJSutilsWrapper {
         }
     }
 
+    private void WriteJsonToFile(String pathStr, String content) {
+        try {
+            Path baseDir = FMLPaths.GAMEDIR.get().normalize().toAbsolutePath();
+            Path filePath = baseDir.resolve(pathStr.replace('\\', '/')).normalize().toAbsolutePath();
+
+            Files.createDirectories(filePath.getParent());
+            Files.writeString(filePath, content, StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to write JSON to file: " + pathStr, e);
+        }
+    }
+
     public void Download(String URL, Path savePath, String FileName) {
         Path normalizedPath = ValidateAndNormalizePath(String.valueOf(savePath));
         if (Objects.equals(FileName, "null")) {
@@ -160,6 +172,89 @@ public class KJSutilsWrapper {
             list.add(element.toString());
         }
         return list;
+    }
+
+    public void ModifyJsonValue(String filePath, String jsonPath, Object newValue) {
+        try {
+            String jsonContent = ResolveToJsonString(filePath);
+            JsonElement root = JsonParser.parseString(jsonContent);
+
+            JsonElement modifiedRoot = modifyJsonElement(root, jsonPath, newValue);
+
+            String modifiedContent = new GsonBuilder().setPrettyPrinting().create().toJson(modifiedRoot);
+            WriteJsonToFile(filePath, modifiedContent);
+
+            KJSutils.LOGGER.info("Successfully modified {} at path {}", filePath, jsonPath);
+        } catch (Exception e) {
+            KJSutils.LOGGER.error("Failed to modify JSON: {}", filePath, e);
+            throw new RuntimeException("Failed to modify JSON value", e);
+        }
+    }
+
+    private JsonElement modifyJsonElement(JsonElement root, String path, Object newValue) {
+        if (!path.startsWith("$.")) {
+            throw new IllegalArgumentException("Only paths starting with '$.' are supported");
+        }
+
+        String relativePath = path.substring(2);
+        String[] pathParts = relativePath.split("\\.");
+
+        if (pathParts.length == 0) {
+            throw new IllegalArgumentException("Invalid path: " + path);
+        }
+
+        JsonObject currentObject;
+        if (root.isJsonObject()) {
+            currentObject = root.getAsJsonObject().deepCopy();
+        } else {
+            currentObject = new JsonObject();
+        }
+
+        JsonObject targetObject = currentObject;
+
+        for (int i = 0; i < pathParts.length - 1; i++) {
+            String part = pathParts[i];
+            if (!targetObject.has(part)) {
+                targetObject.add(part, new JsonObject());
+            }
+
+            JsonElement nextElement = targetObject.get(part);
+            if (!nextElement.isJsonObject()) {
+                JsonObject newObject = new JsonObject();
+                targetObject.add(part, newObject);
+                nextElement = newObject;
+            }
+
+            targetObject = nextElement.getAsJsonObject();
+        }
+
+        String finalKey = pathParts[pathParts.length - 1];
+        JsonElement newJsonValue = convertToJsonElement(newValue);
+        targetObject.add(finalKey, newJsonValue);
+
+        return currentObject;
+    }
+
+    private JsonElement convertToJsonElement(Object value) {
+        if (value == null) {
+            return JsonNull.INSTANCE;
+        } else if (value instanceof String) {
+            return new JsonPrimitive((String) value);
+        } else if (value instanceof Number) {
+            return new JsonPrimitive((Number) value);
+        } else if (value instanceof Boolean) {
+            return new JsonPrimitive((Boolean) value);
+        } else if (value instanceof Character) {
+            return new JsonPrimitive((Character) value);
+        } else if (value instanceof JsonElement) {
+            return (JsonElement) value;
+        } else {
+            try {
+                return JsonParser.parseString(value.toString());
+            } catch (JsonSyntaxException e) {
+                return new JsonPrimitive(value.toString());
+            }
+        }
     }
 
     public void FMsetVariable(String variableName, String variableValue) {
