@@ -106,6 +106,14 @@ public class KJSutilsWrapper {
         if (root == null || path == null || !path.startsWith("$"))
             throw new IllegalArgumentException("Invalid JSON path: " + path);
 
+        if (path.startsWith("$$.")) {
+            String rawKey = path.substring(3);
+            if (!root.isJsonObject()) return JsonNull.INSTANCE;
+
+            JsonObject obj = root.getAsJsonObject();
+            return obj.has(rawKey) ? obj.get(rawKey) : JsonNull.INSTANCE;
+        }
+
         path = path.substring(1);
         if (path.startsWith(".")) path = path.substring(1);
         List<Object> tokens = Tokenize(path);
@@ -236,23 +244,31 @@ public class KJSutilsWrapper {
     }
 
     private JsonElement convertToJsonElement(Object value) {
-        if (value == null) {
-            return JsonNull.INSTANCE;
-        } else if (value instanceof String) {
-            return new JsonPrimitive((String) value);
-        } else if (value instanceof Number) {
-            return new JsonPrimitive((Number) value);
-        } else if (value instanceof Boolean) {
-            return new JsonPrimitive((Boolean) value);
-        } else if (value instanceof Character) {
-            return new JsonPrimitive((Character) value);
-        } else if (value instanceof JsonElement) {
-            return (JsonElement) value;
-        } else {
-            try {
-                return JsonParser.parseString(value.toString());
-            } catch (JsonSyntaxException e) {
-                return new JsonPrimitive(value.toString());
+        switch (value) {
+            case null -> {
+                return JsonNull.INSTANCE;
+            }
+            case String s -> {
+                return new JsonPrimitive(s);
+            }
+            case Number number -> {
+                return new JsonPrimitive(number);
+            }
+            case Boolean b -> {
+                return new JsonPrimitive(b);
+            }
+            case Character c -> {
+                return new JsonPrimitive(c);
+            }
+            case JsonElement jsonElement -> {
+                return jsonElement;
+            }
+            default -> {
+                try {
+                    return JsonParser.parseString(value.toString());
+                } catch (JsonSyntaxException e) {
+                    return new JsonPrimitive(value.toString());
+                }
             }
         }
     }
