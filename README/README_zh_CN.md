@@ -45,6 +45,7 @@ KJSutils.AnalysisAll("文件路径（仅能读取在 .minecraft/ 路径下以保
 | 语法类型   | 语法示例                                                         | 描述                                          | 返回值示例                                                                             |
 |--------|--------------------------------------------------------------|---------------------------------------------|-----------------------------------------------------------------------------------|
 | 根对象    | `$`                                                          | 引用 JSON 根对象                                 | 整个 JSON 内容                                                                        |
+| 强制根对象  | `$$`                                                         | 强制解析为根对象名字                                  | 语言键值                                                                              |
 | 对象属性   | `$.property`<br>`$.nested.property`                          | 访问对象的属性<br>访问嵌套对象属性                         | `"value"`<br>`"nested_value"`                                                     |
 | 数组索引   | `$[0]`<br>`$.items[1]`                                       | 访问数组的第一个元素<br>访问对象中数组的第二个元素                 | `"first_item"`<br>`{"id": 2, "name": "item2"}`                                    |
 | 带引号的属性 | `$['property-name']`<br>`$['nested']['property']`            | 访问包含特殊字符的属性<br>嵌套带引号的属性                     | `"value"`<br>`"nested_value"`                                                     |
@@ -96,6 +97,7 @@ KJSutils.AnalysisAll("文件路径（仅能读取在 .minecraft/ 路径下以保
 | `$.players.*.name`                  | 获取所有玩家的名字       | `["Steve", "Alex"]`                                          |
 | `$.players[0].inventory.*.count`    | 获取Steve所有物品的数量	 | `[5, 64]`                                                    |
 | `$.players.*.inventory.*.id`        | 获取所有玩家的所有物品ID   | `["minecraft:diamond", "minecraft:stone", "minecraft:wood"]` |
+| `$$.item.minecraft.wood`            | 强制解析为根路径        | `木头`                                                         |
 
 ---
 
@@ -167,6 +169,17 @@ let value = KJSutils.FMgetVariable("test")
 if (KJSutils.FMexistsVariable("test")) {
     // 其它操作
 }
+```
+
+---
+
+### 5. 获取客户端语言
+
+**使用方式：**
+
+```javascript
+// 返回 String 类型的值，例如 en_us
+KJSutils.GetClientLanguage()
 ```
 
 ---

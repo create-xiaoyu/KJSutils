@@ -3,6 +3,7 @@ package com.xiaoyu.kjsutils;
 import com.google.gson.*;
 import de.keksuccino.fancymenu.customization.variables.Variable;
 import de.keksuccino.fancymenu.customization.variables.VariableHandler;
+import net.minecraft.client.Minecraft;
 import net.neoforged.fml.loading.FMLPaths;
 
 import java.io.IOException;
@@ -295,5 +296,10 @@ public class KJSutilsWrapper {
 
     public void FMclearAllVariables() {
         VariableHandler.clearVariables();
+    }
+
+    public static String GetClientLanguage() {
+        Minecraft minecraft = Minecraft.getInstance();
+        return minecraft.getLanguageManager().getSelected();
     }
 }

@@ -42,14 +42,15 @@ KJSutils.AnalysisAll("file_path (must be within .minecraft/ for safety)", "json_
 
 ### JSON Path Syntax Reference
 
-| Syntax Type     | Example                                                      | Description                                                                                         | Example Return Value                                                              |
-| --------------- | ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| Root Object     | `$`                                                          | Refers to the root of the JSON object                                                               | The entire JSON content                                                           |
-| Object Property | `$.property`<br>`$.nested.property`                          | Access an object’s property or nested property                                                      | `"value"`<br>`"nested_value"`                                                     |
-| Array Index     | `$[0]`<br>`$.items[1]`                                       | Access the first array element or the second element within an object’s array                       | `"first_item"`<br>`{"id": 2, "name": "item2"}`                                    |
-| Quoted Property | `$['property-name']`<br>`$['nested']['property']`            | Access properties containing special characters, or nested quoted properties                        | `"value"`<br>`"nested_value"`                                                     |
-| Wildcard        | `$.*`<br>`$.items.*`<br>`$.items.*.name`                     | Get all root values, all elements in an object array, or specific fields of all objects in an array | `["value1", "value2", ...]`<br>`[elem1, elem2, ...]`<br>`["name1", "name2", ...]` |
-| Mixed Path      | `$.data[0].users[2].name`<br>`$['config']['items'][1].price` | Combine different syntax types for complex paths                                                    | `"user_name"`<br>`15.99`                                                          |
+| Syntax Type       | Example                                                      | Description                                                                                         | Example Return Value                                                              |
+|-------------------|--------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
+| Root Object       | `$`                                                          | Refers to the root of the JSON object                                                               | The entire JSON content                                                           |
+| Force Root Object | `$$`                                                         | Force parse as root object name                                                                     | i18n lang key                                                                     |
+| Object Property   | `$.property`<br>`$.nested.property`                          | Access an object’s property or nested property                                                      | `"value"`<br>`"nested_value"`                                                     |
+| Array Index       | `$[0]`<br>`$.items[1]`                                       | Access the first array element or the second element within an object’s array                       | `"first_item"`<br>`{"id": 2, "name": "item2"}`                                    |
+| Quoted Property   | `$['property-name']`<br>`$['nested']['property']`            | Access properties containing special characters, or nested quoted properties                        | `"value"`<br>`"nested_value"`                                                     |
+| Wildcard          | `$.*`<br>`$.items.*`<br>`$.items.*.name`                     | Get all root values, all elements in an object array, or specific fields of all objects in an array | `["value1", "value2", ...]`<br>`[elem1, elem2, ...]`<br>`["name1", "name2", ...]` |
+| Mixed Path        | `$.data[0].users[2].name`<br>`$['config']['items'][1].price` | Combine different syntax types for complex paths                                                    | `"user_name"`<br>`15.99`                                                          |
 
 ---
 
@@ -87,7 +88,7 @@ KJSutils.AnalysisAll("file_path (must be within .minecraft/ for safety)", "json_
 ```
 
 | JSON Path Query                     | Description                                                   | Return Value                                                 |
-| ----------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------ |
+|-------------------------------------|---------------------------------------------------------------|--------------------------------------------------------------|
 | `$.version`                         | Get the version                                               | `1.0.0`                                                      |
 | `$.settings.difficulty`             | Get the difficulty setting                                    | `hard`                                                       |
 | `$.players[0].name`                 | Get the first player's name                                   | `Steve`                                                      |
@@ -96,6 +97,7 @@ KJSutils.AnalysisAll("file_path (must be within .minecraft/ for safety)", "json_
 | `$.players.*.name`                  | Get all player names                                          | `["Steve", "Alex"]`                                          |
 | `$.players[0].inventory.*.count`    | Get all item counts for Steve                                 | `[5, 64]`                                                    |
 | `$.players.*.inventory.*.id`        | Get all item IDs from all players                             | `["minecraft:diamond", "minecraft:stone", "minecraft:wood"]` |
+| `$$.item.minecraft.wood`            | Force parse as root path                                      | `Wood`                                                       |
 
 ---
 
@@ -167,6 +169,17 @@ let value = KJSutils.FMgetVariable("test")
 if (KJSutils.FMexistsVariable("test")) {
     // Other operations
 }
+```
+
+---
+
+### 5. Get Client Language
+
+**Usage:**
+
+```javascript
+// return String value. Example: en_us
+KJSutils.GetClientLanguage()
 ```
 
 ---
