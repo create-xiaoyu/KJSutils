@@ -178,7 +178,10 @@ if (KJSutils.FMexistsVariable("test")) {
 **Usage:**
 
 ```javascript
-// return String value. Example: en_us
+// Get Minecraft Language. return String value. Example: en_us
+KJSutils.GetClientLanguage()
+
+// Get System Language. return String value. Example: en-us
 KJSutils.GetClientLanguage()
 ```
 

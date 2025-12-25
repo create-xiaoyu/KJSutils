@@ -173,13 +173,16 @@ if (KJSutils.FMexistsVariable("test")) {
 
 ---
 
-### 5. 获取客户端语言
+### 5. 获取语言
 
 **使用方式：**
 
 ```javascript
-// 返回 String 类型的值，例如 en_us
+// 获取我的世界客户端语言 返回 String 类型的值，例如 en_us
 KJSutils.GetClientLanguage()
+
+// 获取系统语言 返回 String 类型的值，例如 zh-cn
+KJSutils.GetSystemLanguage()
 ```
 
 ---
