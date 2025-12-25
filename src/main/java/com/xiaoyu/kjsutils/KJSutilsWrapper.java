@@ -17,6 +17,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -298,8 +299,12 @@ public class KJSutilsWrapper {
         VariableHandler.clearVariables();
     }
 
-    public static String GetClientLanguage() {
-        Minecraft minecraft = Minecraft.getInstance();
-        return minecraft.getLanguageManager().getSelected();
+    public String GetClientLanguage() {
+        return Minecraft.getInstance().getLocale().getLanguage();
+    }
+
+    public String GetSystemLanguage() {
+        Locale locale = Locale.getDefault();
+        return locale.toLanguageTag();
     }
 }
