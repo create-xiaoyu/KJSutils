@@ -2,7 +2,7 @@
 
 # KJSutils（Kubejs集成）
 
-此模组对kubejs进行了功能上的扩展，添加了4个新功能，共10个方法
+此模组对kubejs进行了功能上的扩展，添加了6个新功能，共13个方法，2个事件。
 
 ---
 
@@ -101,7 +101,7 @@ KJSutils.AnalysisAll("文件路径（仅能读取在 .minecraft/ 路径下以保
 
 ---
 
-### 3.使用语法（仅支持部分语法）对更改指定的Json对应值
+### 3.使用语法（仅支持部分语法）更改指定的Json对应值
 
 **使用方式：**
 
@@ -183,6 +183,36 @@ KJSutils.GetClientLanguage()
 
 // 获取系统语言 返回 String 类型的值，例如 zh-cn
 KJSutils.GetSystemLanguage()
+```
+
+---
+
+### 事件
+
+该模组添加了2个新的kubejs事件：
+
+```javascript
+// 监听玩家进入指定维度
+KJSutilEvents.playerLoggedInDimension(extra, event => {})
+
+// 监听玩家退出指定维度
+KJSutilEvents.playerLoggedOutDimension(extra, event => {})
+```
+
+**示例：**
+
+```javascript
+// 监听玩家进入下界维度
+KJSutilEvents.playerLoggedInDimension("minecraft:the_nether", event => {
+    let playerName = event.player.username
+    console.log(`${playerName} 进入了下界`)
+})
+
+// 监听玩家退出指定维度
+KJSutilEvents.playerLoggedOutDimension("minecraft:the_nether", event => {
+    let playerName = event.player.username
+    console.log(`${playerName} 离开了下界`)
+})
 ```
 
 ---

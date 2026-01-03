@@ -2,7 +2,7 @@
 
 # KJSutils (KubeJS Integration)
 
-This mod extends the functionality of KubeJS by adding **four new features** (for a total of ten methods).
+This mod extends the functionality of KubeJS by adding six new features, a total of thirteen methods, and two events.
 
 ---
 
@@ -183,6 +183,36 @@ KJSutils.GetClientLanguage()
 
 // Get System Language. return String value. Example: en-us
 KJSutils.GetClientLanguage()
+```
+
+---
+
+### Events
+
+This mod adds two new KubeJS events:
+
+```javascript
+// Listen for a player entering a specified dimension
+KJSutilEvents.playerLoggedInDimension(extra, event => {})
+
+// Listen for a player leaving a specified dimension
+KJSutilEvents.playerLoggedOutDimension(extra, event => {})
+```
+
+**Example:**
+
+```javascript
+// Listen for a player entering the Nether dimension
+KJSutilEvents.playerLoggedInDimension("minecraft:the_nether", event => {
+    let playerName = event.player.username
+    console.log(`${playerName} entered the Nether`)
+})
+
+// Listen for a player leaving the Nether dimension
+KJSutilEvents.playerLoggedOutDimension("minecraft:the_nether", event => {
+    let playerName = event.player.username
+    console.log(`${playerName} left the Nether`)
+})
 ```
 
 ---
