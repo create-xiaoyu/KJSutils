@@ -56,7 +56,7 @@ public class KJSutilsWrapper {
         }
     }
 
-    public void Download(String URL, Path savePath, String FileName) {
+    public boolean Download(String URL, Path savePath, String FileName) {
         Path normalizedPath = ValidateAndNormalizePath(String.valueOf(savePath));
         if (Objects.equals(FileName, "null")) {
             FileName = URL.substring(URL.lastIndexOf('/') + 1);
@@ -72,8 +72,10 @@ public class KJSutilsWrapper {
                 Files.copy(input, savePath, StandardCopyOption.REPLACE_EXISTING);
             }
             KJSutils.LOGGER.info("Download Success {} to {}, Code: {}", URL, savePath, connection.getResponseCode());
+            return true;
         } catch (IOException | URISyntaxException e) {
             KJSutils.LOGGER.error("Download Error: {}", savePath, e);
+            return false;
         } finally {
             if (connection != null) {
                 connection.disconnect();

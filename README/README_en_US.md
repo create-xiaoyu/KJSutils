@@ -8,7 +8,7 @@ This mod extends the functionality of KubeJS by adding six new features, a total
 
 ### 1. Download Files from the Internet
 
-Allows downloading files from the internet with customizable save paths and filenames.
+Supports custom file save paths and file names. Returns `true` if the download succeeds, and `false` if it fails.
 **Files can only be saved inside the `.minecraft/` directory for security reasons.**
 
 **Usage:**
@@ -20,8 +20,13 @@ KJSutils.Download("download_url", "save_path", "save_filename (use null to keep 
 **Examples:**
 
 ```javascript
-KJSutils.Download("https://example.com/example.txt", "config/kjsutils", "null")
-KJSutils.Download("https://example.com/example.txt", "config/kjsutils", "helloworld.txt")
+let download = KJSutils.Download("https://example.com/example.txt", "config/kjsutils", "helloworld.txt")
+
+if (download) {
+    console.log("true")
+} else {
+    console.log("false")
+}
 ```
 
 ---

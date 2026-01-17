@@ -8,7 +8,7 @@
 
 ### 1.从互联网中下载文件
 
-支持自定义保存文件路径以及保存文件名
+支持自定义保存文件路径以及保存文件名，下载成功会返回true，失败则false
 **仅能保存在 `.minecraft/` 路径下以保证安全性**
 
 **使用方式：**
@@ -20,8 +20,13 @@ KJSutils.Download("下载链接", "保存路径", "保存文件名（如果使�
 **示例：**
 
 ```javascript
-KJSutils.Download("https://example.com/example.txt", "config/kjsutils", "null")
-KJSutils.Download("https://example.com/example.txt", "config/kjsutils", "helloworld.txt")
+let download = KJSutils.Download("https://example.com/example.txt", "config/kjsutils", "helloworld.txt")
+
+if (download) {
+    console.log("下载成功")
+} else {
+    console.log("下载失败")
+}
 ```
 
 ---
